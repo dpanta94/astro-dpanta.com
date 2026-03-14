@@ -1,0 +1,16 @@
+{
+  "name": "Dimitris Pantazis",
+  "url": "https://dpanta.com",
+  "title": "dpanta.com",
+  "description": "Personal site and blog of Dimitris Pantazis — software developer writing about development, technology, and things I'm learning.",
+  "language": "en",
+  "author": {
+    "name": "Dimi",
+    "url": "https://dpanta.com"
+  },
+  "social": {
+    "twitter": "",
+    "github": "https://github.com/dpanta94/",
+    "linkedin": "https://www.linkedin.com/in/dimitrios-pantazis-608330169/"
+  }
+}

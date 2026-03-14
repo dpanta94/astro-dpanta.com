@@ -1,0 +1,56 @@
+---
+import Meta from "../components/Meta.astro";
+import site from "../data/site.json";
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  isArticle?: boolean;
+  date?: Date;
+  tags?: string[];
+}
+
+const { title, description, image, isArticle, date, tags } = Astro.props;
+const pageTitle = title && title !== "Home" ? `${title} | ${site.title}` : site.title;
+---
+
+<!doctype html>
+<html lang={site.language}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{pageTitle}</title>
+    <Meta
+      title={title}
+      description={description}
+      image={image}
+      isArticle={isArticle}
+      date={date}
+      tags={tags}
+    />
+    <link rel="alternate" type="application/rss+xml" title={site.title} href="/feed.xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/blog/">Blog</a>
+      </nav>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer>
+      <p>&copy; {new Date().getFullYear()} {site.title}</p>
+    </footer>
+  </body>
+</html>
