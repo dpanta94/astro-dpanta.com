@@ -19,11 +19,23 @@
   --color-rule: #e7e0d8;
 
   --animate-fade-in: fadeIn 0.6s ease both;
+  --animate-fade-in-up: fadeInUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 
   @keyframes fadeIn {
     from {
       opacity: 0;
       transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
     }
     to {
       opacity: 1;
@@ -64,7 +76,7 @@
   }
 
   a {
-    @apply text-ochre no-underline transition-colors duration-200;
+    @apply text-ochre no-underline transition-colors duration-200 cursor-pointer;
   }
 
   a:hover {
@@ -77,6 +89,15 @@
 
   p:first-child {
     @apply mt-0;
+  }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
@@ -99,11 +120,12 @@
   }
 
   header .social a {
-    @apply no-underline opacity-70 transition-opacity duration-200 leading-none;
+    @apply no-underline opacity-60 transition-all duration-300 leading-none;
   }
 
   header .social a:hover {
     @apply opacity-100;
+    transform: translateY(-1px);
   }
 
   header nav a {
@@ -124,10 +146,19 @@
     @apply w-full;
   }
 
+  /* Active nav state */
+  header nav a[aria-current="page"] {
+    @apply text-ink;
+  }
+
+  header nav a[aria-current="page"]::after {
+    @apply w-full bg-ochre;
+  }
+
   /* --- Main --- */
 
   main {
-    @apply flex-1 pt-4 animate-fade-in;
+    @apply flex-1 pt-4;
   }
 
   /* --- Home / Intro --- */
@@ -138,14 +169,32 @@
 
   .intro .greeting {
     @apply font-mono text-[0.8rem] tracking-[0.08em] uppercase text-stone mb-2;
+    animation: fadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   .intro h1 {
     @apply text-[clamp(2.5rem,8vw,3.75rem)] font-bold text-ink mb-1 leading-none;
+    animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
   }
 
   .intro p {
     @apply text-[1.05rem] text-ink max-w-[48ch];
+  }
+
+  .intro p:nth-of-type(2) {
+    animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.16s both;
+  }
+
+  .intro p:nth-of-type(3) {
+    animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.24s both;
+  }
+
+  .intro p:nth-of-type(4) {
+    animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.32s both;
+  }
+
+  .intro p:nth-of-type(5) {
+    animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.40s both;
   }
 
   .intro p + p {
@@ -160,10 +209,26 @@
     @apply border-ink;
   }
 
+  /* Decorative divider */
+  .divider {
+    @apply flex items-center gap-4 my-10;
+  }
+
+  .divider::before,
+  .divider::after {
+    content: "";
+    @apply flex-1 h-px bg-rule;
+  }
+
+  .divider span {
+    @apply text-ochre text-sm;
+  }
+
   /* --- Blog Listing --- */
 
   main > h1 {
     @apply text-3xl mb-1;
+    animation: fadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   .post-list {
@@ -171,7 +236,7 @@
   }
 
   .post-list li {
-    @apply py-5 pl-5 border-l-2 border-transparent transition-[border-color,padding-left] duration-300;
+    @apply py-6 pl-5 border-l-2 border-transparent transition-all duration-300;
   }
 
   .post-list li + li {
@@ -184,6 +249,7 @@
 
   .post-list a {
     @apply font-serif text-[1.35rem] font-semibold text-ink block leading-snug;
+    transition: color 0.2s ease;
   }
 
   .post-list a:hover {
@@ -191,19 +257,32 @@
   }
 
   .post-list time {
-    @apply block mt-1 font-mono text-xs tracking-[0.04em] text-stone;
+    @apply block mt-1.5 font-mono text-xs tracking-[0.04em] text-stone;
   }
+
+  .post-list .post-description {
+    @apply mt-2 text-[0.92rem] text-stone leading-relaxed max-w-[52ch];
+  }
+
+  /* Stagger animation for post list items */
+  .post-list li:nth-child(1) { animation: fadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both; }
+  .post-list li:nth-child(2) { animation: fadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.18s both; }
+  .post-list li:nth-child(3) { animation: fadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.26s both; }
+  .post-list li:nth-child(4) { animation: fadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.34s both; }
+  .post-list li:nth-child(5) { animation: fadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.42s both; }
+  .post-list li:nth-child(n+6) { animation: fadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both; }
 
   /* --- Tags --- */
 
   .tag {
     @apply inline-block font-mono text-[0.7rem] tracking-[0.04em] lowercase;
     @apply text-ochre bg-ochre-light py-[0.15em] px-[0.6em] rounded-sm;
-    @apply transition-[background,color] duration-200;
+    @apply transition-all duration-200;
   }
 
   .tag:hover {
     @apply bg-ochre text-paper no-underline;
+    transform: translateY(-1px);
   }
 
   .tag + .tag {
@@ -212,6 +291,7 @@
 
   .tag-filter {
     @apply flex flex-wrap gap-2 mt-4;
+    animation: fadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
   }
 
   .post-meta {
@@ -231,17 +311,64 @@
   }
 
   .back-link a {
-    @apply font-mono text-[0.8rem] tracking-[0.04em] text-stone;
+    @apply font-mono text-[0.8rem] tracking-[0.04em] text-stone transition-all duration-200;
   }
 
   .back-link a:hover {
     @apply text-ochre;
+    transform: translateX(-4px);
+  }
+
+  /* --- About page --- */
+
+  .about-content {
+    animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+  }
+
+  .about-content h1 {
+    @apply text-[clamp(2rem,6vw,3rem)] mb-2;
+  }
+
+  .about-content .lead {
+    @apply text-[1.1rem] text-ink max-w-[52ch] leading-relaxed;
+  }
+
+  .about-content h2 {
+    @apply text-xl mt-10 mb-3 font-serif text-ink;
+  }
+
+  .about-content h2::before {
+    content: "";
+    @apply block w-8 h-[2px] bg-ochre mb-3;
+  }
+
+  .about-content section {
+    @apply mt-6;
+  }
+
+  .about-content section p {
+    @apply text-[1.02rem] max-w-[56ch] leading-relaxed;
+  }
+
+  .tech-list {
+    @apply flex flex-wrap gap-2 mt-4;
+  }
+
+  .tech-list span {
+    @apply font-mono text-[0.75rem] tracking-[0.02em] text-stone;
+    @apply bg-paper border border-rule py-1 px-2.5 rounded-sm;
+    @apply transition-all duration-200;
+  }
+
+  .tech-list span:hover {
+    @apply border-ochre text-ochre;
   }
 
   /* --- Article / Blog Post --- */
 
   article {
     @apply py-8;
+    animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   article h1 {
@@ -250,6 +377,15 @@
 
   article p {
     @apply text-[1.05rem] max-w-[60ch];
+  }
+
+  /* Drop cap for first paragraph of article body */
+  article .post-meta + p::first-letter {
+    @apply font-serif font-bold text-ochre float-left;
+    font-size: 3.2em;
+    line-height: 0.85;
+    padding-right: 0.08em;
+    margin-top: 0.05em;
   }
 
   article h2 {
@@ -296,11 +432,19 @@
   /* --- Footer --- */
 
   footer {
-    @apply mt-auto pt-10 pb-8 border-t border-rule;
+    @apply mt-auto pt-8 pb-10 border-t border-rule;
+  }
+
+  footer .footer-content {
+    @apply flex items-center justify-between;
   }
 
   footer p {
     @apply font-mono text-xs tracking-[0.04em] text-stone;
+  }
+
+  footer .footer-tagline {
+    @apply font-serif italic text-sm text-stone mt-0;
   }
 }
 
@@ -309,6 +453,10 @@
 @media (max-width: 480px) {
   header {
     @apply pt-6 pb-5;
+  }
+
+  header nav {
+    @apply gap-5;
   }
 
   .intro {
@@ -321,5 +469,9 @@
 
   .post-list li:hover {
     @apply pl-4;
+  }
+
+  footer .footer-content {
+    @apply flex-col items-start gap-2;
   }
 }

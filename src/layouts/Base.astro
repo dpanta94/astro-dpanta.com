@@ -14,6 +14,8 @@ interface Props {
 
 const { title, description, image, isArticle, date, tags } = Astro.props;
 const pageTitle = title && title !== "Home" ? `${title} | ${site.title}` : `Hey! It's ${site.title}`;
+
+const currentPath = Astro.url.pathname;
 ---
 
 <!doctype html>
@@ -42,9 +44,9 @@ const pageTitle = title && title !== "Home" ? `${title} | ${site.title}` : `Hey!
   <body>
     <header>
       <nav>
-        <a href="/">Home</a>
-        <a href="/blog/">Blog</a>
-        <a href="/about/">About</a>
+        <a href="/" aria-current={currentPath === "/" ? "page" : undefined}>Home</a>
+        <a href="/blog/" aria-current={currentPath.startsWith("/blog") ? "page" : undefined}>Blog</a>
+        <a href="/about/" aria-current={currentPath.startsWith("/about") ? "page" : undefined}>About</a>
       </nav>
       <nav class="social">
         {site.social.github && (
@@ -63,7 +65,10 @@ const pageTitle = title && title !== "Home" ? `${title} | ${site.title}` : `Hey!
       <slot />
     </main>
     <footer>
-      <p>&copy; {new Date().getFullYear()} {site.title}</p>
+      <div class="footer-content">
+        <p>&copy; {new Date().getFullYear()} {site.name}</p>
+        <p class="footer-tagline">Built with curiosity & coffee</p>
+      </div>
     </footer>
   </body>
 </html>

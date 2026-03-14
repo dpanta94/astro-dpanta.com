@@ -3,30 +3,60 @@ import Base from "../../layouts/Base.astro";
 ---
 
 <Base title="About" description="About me and my work.">
-  <h1>About</h1>
-  <p>
-    I'm Dimitris Pantazis, a software developer from Greece. My non-greek friends and coworkers call me <span class="font-bold">Dimi</span>.
-  </p>
-  <p>
-    I've started my professional journey in the world of software development in 2018. My first touch with code though was in 2008 when i was 14 years old and i was playing DOTA (Defense of the Ancients) in Warcraft 3.
-    Back then, various bots were created by the community and i was one of those people for whom the bots weren't doing exactly what i wanted them to... So i had to see their code and understand how they worked!
-  </p>
-  <p>
-    Nowadays, I'm working as a Senior Software Engineer at <a href="https://stellarworks.com/" target="_blank" rel="noopener noreferrer">StellarWP</a>, where i help maintain and
-    build new features for <a href="https://theeventscalendar.com/" target="_blank" rel="noopener noreferrer">The Events Calendar</a> products and various other StellarWP products.
-  </p>
-  <p>
-    I also do work on other projects through my agency <a href="https://pantadev.com/" target="_blank" rel="noopener noreferrer">Panta Dev</a>! If you're interested in working with me, feel free to <a href="mailto:dimi@pantadev.com">reach out</a>.
-  </p>
-  <p>
-    My expertise lies in helping businesses of any size, from startups to enterprise, with their needs. That doesn't has to be a WordPress project necessarily, since
-    I am experienced in working with a variety of technologies and frameworks! Laravel, Symfony, React, Next, Vue, Express, Nest and more ! You name it and i've probably worked with it!
-  </p>
-  <p>
-    I have worked extensively with WordPress, both as a developer and as a consultant. I have worked with a variety of plugins and themes, and have a deep understanding of the WordPress ecosystem.
-    Some of my expertise related to WordPress projects includes: WooCommerce, WooCommerce Subscriptions, WooCommerce Memberships, The Events Calendar and Event Tickets, Learndash and more!
-  </p>
-  <p>
-    I am also a big advocate of well tested and documented code. I believe that code should be easy to understand, easy to maintain and safe to update! Without surprises!
-  </p>
+  <div class="about-content">
+    <h1>About</h1>
+    <p class="lead">
+      I'm Dimitris Pantazis, a software developer from Greece. My non-greek friends and coworkers call me <strong>Dimi</strong>.
+    </p>
+
+    <section>
+      <h2>Origin Story</h2>
+      <p>
+        I've started my professional journey in the world of software development in 2018. My first touch with code though was in 2008 when i was 14 years old and i was playing DOTA (Defense of the Ancients) in Warcraft 3.
+      </p>
+      <p>
+        Back then, various bots were created by the community and i was one of those people for whom the bots weren't doing exactly what i wanted them to... So i had to see their code and understand how they worked!
+      </p>
+    </section>
+
+    <section>
+      <h2>What I Do</h2>
+      <p>
+        Nowadays, I'm working as a Senior Software Engineer at <a href="https://stellarworks.com/" target="_blank" rel="noopener noreferrer">StellarWP</a>, where i help maintain and
+        build new features for <a href="https://theeventscalendar.com/" target="_blank" rel="noopener noreferrer">The Events Calendar</a> products and various other StellarWP products.
+      </p>
+      <p>
+        I also do work on other projects through my agency <a href="https://pantadev.com/" target="_blank" rel="noopener noreferrer">Panta Dev</a>! If you're interested in working with me, feel free to <a href="mailto:dimi@pantadev.com">reach out</a>.
+      </p>
+    </section>
+
+    <section>
+      <h2>Expertise</h2>
+      <p>
+        My expertise lies in helping businesses of any size, from startups to enterprise, with their needs. That doesn't have to be a WordPress project necessarily, since
+        I am experienced in working with a variety of technologies and frameworks.
+      </p>
+      <div class="tech-list">
+        <span>Laravel</span>
+        <span>Symfony</span>
+        <span>React</span>
+        <span>Next.js</span>
+        <span>Vue</span>
+        <span>Express</span>
+        <span>NestJS</span>
+        <span>WordPress</span>
+        <span>WooCommerce</span>
+      </div>
+      <p>
+        I have worked extensively with WordPress, both as a developer and as a consultant, with a deep understanding of the ecosystem including WooCommerce, The Events Calendar, Event Tickets, LearnDash, and more.
+      </p>
+    </section>
+
+    <section>
+      <h2>Philosophy</h2>
+      <p>
+        I am a big advocate of well tested and documented code. I believe that code should be easy to understand, easy to maintain and safe to update. Without surprises.
+      </p>
+    </section>
+  </div>
 </Base>

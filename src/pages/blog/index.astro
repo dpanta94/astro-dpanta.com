@@ -33,6 +33,9 @@ function formatDate(date: Date) {
         <time datetime={post.data.date.toISOString().split("T")[0]}>
           {formatDate(post.data.date)}
         </time>
+        {post.data.description && (
+          <p class="post-description">{post.data.description}</p>
+        )}
       </li>
     ))}
   </ul>
