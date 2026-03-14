@@ -1,5 +1,5 @@
 ---
-import Meta from "../components/Meta.astro";
+import { SEO } from "astro-seo";
 import site from "../data/site.json";
 import "../styles/global.css";
 
@@ -12,8 +12,12 @@ interface Props {
   tags?: string[];
 }
 
-const { title, description, image, isArticle, date, tags } = Astro.props;
-const pageTitle = title && title !== "Home" ? `${title} | ${site.title}` : `Hey! It's ${site.title}`;
+const { title, description = site.description, image, isArticle, date, tags } = Astro.props;
+
+const ogImage = image
+  ? `${site.url}${image}`
+  : `${site.url}/images/og-default.jpg`;
+const canonicalUrl = new URL(Astro.url.pathname, site.url).href;
 
 const currentPath = Astro.url.pathname;
 ---
@@ -24,14 +28,44 @@ const currentPath = Astro.url.pathname;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0c0a09" />
-    <title>{pageTitle}</title>
-    <Meta
-      title={title}
+    <meta name="generator" content={Astro.generator} />
+    <SEO
+      title={title || site.title}
+      titleTemplate={title && title !== "Home" ? `%s | ${site.title}` : undefined}
+      titleDefault={`Hey! It's ${site.title}`}
       description={description}
-      image={image}
-      isArticle={isArticle}
-      date={date}
-      tags={tags}
+      canonical={canonicalUrl}
+      openGraph={{
+        basic: {
+          title: title || site.title,
+          type: isArticle ? "article" : "website",
+          image: ogImage,
+          url: canonicalUrl,
+        },
+        optional: {
+          description,
+          siteName: site.title,
+          locale: site.language,
+        },
+        ...(isArticle && date && {
+          article: {
+            publishedTime: date.toISOString(),
+            authors: [site.author.name],
+            ...(tags && tags.length > 0 && { tags }),
+          },
+        }),
+      }}
+      twitter={{
+        card: image ? "summary_large_image" : "summary",
+        title: title || site.title,
+        image: ogImage,
+        description,
+      }}
+      extend={{
+        meta: [
+          { name: "author", content: site.author.name },
+        ],
+      }}
     />
     <link rel="alternate" type="application/rss+xml" title={site.title} href="/feed.xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
