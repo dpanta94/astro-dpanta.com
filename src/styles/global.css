@@ -1,22 +1,52 @@
 @import "tailwindcss";
 
 /* ==========================================
-   dpanta.com — Midnight Editorial
-   A dark, warm, premium literary aesthetic
+   dpanta.com — Editorial
+   Dark + Light theme with warm literary feel
    ========================================== */
+
+/* --- Theme tokens (CSS custom properties) --- */
+
+:root {
+  --theme-ink: #f5f0e8;
+  --theme-ink-muted: #a8a29e;
+  --theme-bg: #0c0a09;
+  --theme-surface: #1c1917;
+  --theme-amber: #d97706;
+  --theme-amber-dim: rgba(217, 119, 6, 0.12);
+  --theme-rule: #292524;
+  --theme-social-fill: #a8a29e;
+  --theme-meta-color: #0c0a09;
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --theme-ink: #1c1917;
+  --theme-ink-muted: #57534e;
+  --theme-bg: #f8f5f0;
+  --theme-surface: #ffffff;
+  --theme-amber: #b45309;
+  --theme-amber-dim: rgba(180, 83, 9, 0.1);
+  --theme-rule: #e7e0d8;
+  --theme-social-fill: #78716c;
+  --theme-meta-color: #f8f5f0;
+  color-scheme: light;
+}
+
+/* --- Tailwind theme tokens --- */
 
 @theme {
   --font-serif: "Playfair Display", "Georgia", serif;
   --font-sans: "Inter", "Helvetica Neue", sans-serif;
   --font-mono: "JetBrains Mono", "Menlo", monospace;
 
-  --color-ink: #f5f0e8;
-  --color-ink-muted: #a8a29e;
-  --color-bg: #0c0a09;
-  --color-surface: #1c1917;
-  --color-amber: #d97706;
-  --color-amber-dim: rgba(217, 119, 6, 0.12);
-  --color-rule: #292524;
+  --color-ink: var(--theme-ink);
+  --color-ink-muted: var(--theme-ink-muted);
+  --color-bg: var(--theme-bg);
+  --color-surface: var(--theme-surface);
+  --color-amber: var(--theme-amber);
+  --color-amber-dim: var(--theme-amber-dim);
+  --color-rule: var(--theme-rule);
 
   --animate-fade-in-up: fadeInUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 
@@ -28,12 +58,6 @@
     to {
       opacity: 1;
       transform: translateY(0);
-    }
-  }
-
-  @keyframes shimmer {
-    to {
-      background-position: 200% center;
     }
   }
 }
@@ -51,10 +75,11 @@
     @apply font-sans text-[15px] font-normal leading-[1.8] text-ink bg-bg;
     @apply px-[clamp(1.25rem,5vw,2.5rem)] mx-auto max-w-[640px];
     @apply min-h-screen flex flex-col relative;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   ::selection {
-    background: rgba(217, 119, 6, 0.3);
+    background: var(--theme-amber-dim);
     @apply text-ink;
   }
 
@@ -101,6 +126,10 @@
     @apply flex items-center gap-7;
   }
 
+  header .header-right {
+    @apply flex items-center gap-4;
+  }
+
   header .social {
     @apply flex items-center gap-4;
   }
@@ -112,6 +141,12 @@
   header .social a:hover {
     @apply opacity-100;
     transform: translateY(-2px);
+  }
+
+  /* Social SVG fills adapt to theme */
+  header .social svg {
+    fill: var(--theme-social-fill);
+    transition: fill 0.3s ease;
   }
 
   header nav a {
@@ -131,8 +166,32 @@
   header nav a[aria-current="page"]::after {
     content: "";
     @apply absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-amber;
-    box-shadow: 0 0 6px rgba(217, 119, 6, 0.6);
+    box-shadow: 0 0 6px var(--theme-amber);
   }
+
+  /* --- Theme Toggle --- */
+
+  .theme-toggle {
+    @apply bg-transparent border-none cursor-pointer p-1.5 rounded-full leading-none;
+    @apply transition-all duration-200;
+    color: var(--theme-ink-muted);
+  }
+
+  .theme-toggle:hover {
+    color: var(--theme-amber);
+    transform: rotate(15deg);
+  }
+
+  .theme-toggle svg {
+    @apply w-[18px] h-[18px] block;
+  }
+
+  /* Show/hide icons based on theme */
+  .theme-toggle .icon-moon { display: block; }
+  .theme-toggle .icon-sun { display: none; }
+
+  [data-theme="light"] .theme-toggle .icon-moon { display: none; }
+  [data-theme="light"] .theme-toggle .icon-sun { display: block; }
 
   /* --- Main --- */
 
@@ -202,7 +261,7 @@
   .post-list li::before {
     content: "";
     @apply absolute left-0 top-0 w-0 h-full;
-    background: linear-gradient(90deg, rgba(217, 119, 6, 0.06), transparent);
+    background: linear-gradient(90deg, var(--theme-amber-dim), transparent);
     transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
