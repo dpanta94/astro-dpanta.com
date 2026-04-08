@@ -331,6 +331,14 @@
     @apply flex gap-1.5;
   }
 
+  .post-hero {
+    @apply rounded-lg mb-10 mx-auto block;
+    width: min(100vw - 2rem, 900px);
+    max-width: none;
+    margin-left: calc(50% - min(50vw - 1rem, 450px));
+    height: auto;
+  }
+
   .back-link {
     @apply mt-12;
   }
@@ -347,6 +355,7 @@
   /* --- About page --- */
 
   .about-content {
+    @apply pb-12;
     animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
   }
 
