@@ -401,6 +401,18 @@
     @apply border-amber text-amber;
   }
 
+  .about-figure {
+    @apply mt-14 mb-2;
+  }
+
+  .about-figure img {
+    @apply rounded-lg block w-full h-auto;
+  }
+
+  .about-figure figcaption {
+    @apply font-serif italic text-[0.98rem] text-ink-muted leading-relaxed mt-4 text-center max-w-[54ch] mx-auto;
+  }
+
   /* --- Article / Blog Post --- */
 
   article {
