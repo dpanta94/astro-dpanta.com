@@ -4,9 +4,16 @@
   "title": "Dimi",
   "description": "Personal site and blog of Dimitris Pantazis — software developer writing about development, technology, and things I'm learning.",
   "language": "en",
+  "locale": "en_US",
   "author": {
-    "name": "Dimi",
-    "url": "https://dpanta.com"
+    "name": "Dimitris Pantazis",
+    "alternateName": "Dimi",
+    "url": "https://dpanta.com",
+    "jobTitle": "Staff Engineer",
+    "worksFor": {
+      "name": "Nexcess",
+      "url": "https://www.nexcess.com/"
+    }
   },
   "social": {
     "twitter": "",

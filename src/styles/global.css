@@ -323,7 +323,8 @@
     @apply flex items-center gap-4 flex-wrap mb-10 pb-7 border-b border-rule;
   }
 
-  .post-meta time {
+  .post-meta time,
+  .post-meta .post-author {
     @apply font-mono text-[0.72rem] tracking-[0.06em] uppercase text-ink-muted;
   }
 

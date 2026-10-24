@@ -5,7 +5,8 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   site: "https://dpanta.com",
-  integrations: [sitemap()],
+  // Tag pages are thin listings, kept out of the index (noindex in [tag].astro).
+  integrations: [sitemap({ filter: (page) => !page.includes("/tags/") })],
 
   markdown: {
     shikiConfig: {

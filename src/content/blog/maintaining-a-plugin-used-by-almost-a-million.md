@@ -1,5 +1,5 @@
 ---
-title: What maintaining a plugin used by almost a million taught me
+title: What maintaining a WordPress plugin on 800,000 sites taught me
 date: 2026-03-20
 description: Lessons from working on The Events Calendar, a WordPress plugin running on over 800,000 sites. Backwards compatibility, database migrations, and the weight of a bad release.
 image: ../../assets/images/maintaining-a-plugin-used-by-almost-a-million.png

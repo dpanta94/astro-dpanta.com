@@ -27,7 +27,7 @@ function formatDate(date: Date) {
 }
 ---
 
-<Base title={`Tagged: ${tag}`}>
+<Base title={`Tagged: ${tag}`} description={`Posts tagged ${tag} by Dimitris Pantazis.`} noindex>
   <h1>Posts tagged <em>{tag}</em></h1>
   <ul class="post-list">
     {posts.map((post) => (
