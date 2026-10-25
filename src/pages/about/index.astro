@@ -1,13 +1,16 @@
 ---
+import { Image } from "astro:assets";
 import Base from "../../layouts/Base.astro";
+import headshot from "../../assets/images/dimitris-pantazis.jpg";
 ---
 
 <Base
   title="About"
   description="Dimitris Pantazis is a Staff Engineer at Nexcess, leading engineering for The Events Calendar. Background, expertise, and how to work together."
-  person
+  schema="profile"
 >
   <div class="about-content">
+    <Image src={headshot} alt="Dimitris Pantazis" width={112} height={112} fit="cover" position="top" densities={[1, 2]} class="about-headshot" priority />
     <h1>About</h1>
     <p class="lead">
       I'm Dimitris Pantazis, a software developer from Greece. My non-Greek friends and coworkers call me <strong>Dimi</strong>.
@@ -31,8 +34,12 @@ import Base from "../../layouts/Base.astro";
       <p>
         Before that, I was a Senior Software Engineer at <a href="https://stellarwp.com/" target="_blank" rel="noopener noreferrer">StellarWP</a>, where I helped maintain and build new features for The Events Calendar and other StellarWP products.
       </p>
+    </section>
+
+    <section>
+      <h2>Work with me</h2>
       <p>
-        I also take on projects through my agency <a href="https://pantadev.com/" target="_blank" rel="noopener noreferrer">Panta Dev</a>. If you're interested in working together, <a href="mailto:dimi@pantadev.com">reach out</a>.
+        Through <a href="https://pantadev.com/" target="_blank" rel="noopener noreferrer">Panta Dev</a>, I build, fix and look after WooCommerce stores: custom plugins, integrations, speed and security work, and monthly care. If that sounds like what you need, email me at <a href="mailto:dimi@pantadev.com">dimi@pantadev.com</a>.
       </p>
     </section>
 

@@ -20,6 +20,10 @@ export async function GET() {
     `- [About](${site.url}/about/): Background, expertise, and how to work with ${author.name}`,
     `- [Blog](${site.url}/blog/): All posts`,
     "",
+    "## Work with me",
+    "",
+    "- [Panta Dev](https://pantadev.com/): Dimitris Pantazis's agency. It builds, fixes and looks after WooCommerce stores: custom plugins, integrations, speed and security work, and monthly care. Contact: dimi@pantadev.com",
+    "",
     "## Posts",
     "",
     ...posts.map(
