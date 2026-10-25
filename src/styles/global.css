@@ -49,12 +49,10 @@
   --color-amber-dim: var(--theme-amber-dim);
   --color-rule: var(--theme-rule);
 
-  --animate-fade-in-up: fadeInUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
-
   @keyframes fadeInUp {
     from {
       opacity: 0;
-      transform: translateY(24px);
+      transform: translateY(8px);
     }
     to {
       opacity: 1;
@@ -67,16 +65,26 @@
 
 @layer base {
   html {
-    scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  /* Theme switch: one whole-page crossfade (see the toggle script in Base.astro) */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 200ms;
   }
 
   body {
     @apply font-sans text-[15px] font-normal leading-[1.8] text-ink bg-bg;
     @apply px-[clamp(1.25rem,5vw,2.5rem)] mx-auto max-w-[640px];
     @apply min-h-screen flex flex-col relative;
-    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   ::selection {
@@ -136,12 +144,19 @@
   }
 
   header .social a {
-    @apply no-underline opacity-50 transition-all duration-300 leading-none;
+    @apply no-underline opacity-50 leading-none;
+    transition: opacity 200ms ease, translate 200ms ease;
   }
 
   header .social a:hover {
     @apply opacity-100;
-    transform: translateY(-2px);
+  }
+
+  /* Hover motion only where hover is real; on touch, a tap leaves it stuck */
+  @media (hover: hover) and (pointer: fine) {
+    header .social a:hover {
+      translate: 0 -2px;
+    }
   }
 
   /* Social SVG fills adapt to theme */
@@ -174,13 +189,22 @@
 
   .theme-toggle {
     @apply bg-transparent border-none cursor-pointer p-1.5 rounded-full leading-none;
-    @apply transition-all duration-200;
+    transition: color 200ms ease, rotate 200ms ease, scale 160ms ease-out;
     color: var(--theme-ink-muted);
   }
 
   .theme-toggle:hover {
     color: var(--theme-amber);
-    transform: rotate(15deg);
+  }
+
+  .theme-toggle:active {
+    scale: 0.95;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .theme-toggle:hover {
+      rotate: 15deg;
+    }
   }
 
   .theme-toggle svg {
@@ -208,28 +232,28 @@
 
   .intro .greeting {
     @apply font-mono text-[0.72rem] tracking-[0.14em] uppercase text-amber mb-3;
-    animation: fadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: fadeInUp 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   .intro h1 {
     @apply text-[clamp(2.8rem,9vw,4.2rem)] text-ink mb-4;
     letter-spacing: -0.03em;
-    animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.06s both;
+    animation: fadeInUp 0.3s cubic-bezier(0.22, 1, 0.36, 1) 0.06s both;
   }
 
   .intro .subtitle {
     @apply text-[1.15rem] text-ink-muted leading-relaxed max-w-[44ch] mb-6;
-    animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
+    animation: fadeInUp 0.3s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
   }
 
   .intro p {
     @apply text-[1rem] text-ink-muted max-w-[50ch] leading-relaxed;
   }
 
-  .intro p:nth-of-type(2) { animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.18s both; }
-  .intro p:nth-of-type(3) { animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.24s both; }
-  .intro p:nth-of-type(4) { animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.30s both; }
-  .intro p:nth-of-type(5) { animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.36s both; }
+  .intro p:nth-of-type(2) { animation: fadeInUp 0.3s cubic-bezier(0.22, 1, 0.36, 1) 0.18s both; }
+  .intro p:nth-of-type(3) { animation: fadeInUp 0.3s cubic-bezier(0.22, 1, 0.36, 1) 0.24s both; }
+  .intro p:nth-of-type(4) { animation: fadeInUp 0.3s cubic-bezier(0.22, 1, 0.36, 1) 0.30s both; }
+  .intro p:nth-of-type(5) { animation: fadeInUp 0.3s cubic-bezier(0.22, 1, 0.36, 1) 0.36s both; }
 
   .intro p + p {
     @apply mt-5;
@@ -237,7 +261,7 @@
 
   .intro a {
     @apply text-amber border-b border-amber/30;
-    @apply transition-all duration-200;
+    transition: color 200ms ease, border-color 200ms ease;
   }
 
   .intro a:hover {
@@ -248,7 +272,7 @@
 
   main > h1 {
     @apply text-[clamp(2rem,6vw,3rem)] mb-2;
-    animation: fadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: fadeInUp 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   .post-list {
@@ -256,18 +280,21 @@
   }
 
   .post-list li {
-    @apply py-7 border-b border-rule transition-all duration-300 relative;
+    @apply py-7 border-b border-rule relative;
   }
 
   .post-list li::before {
     content: "";
-    @apply absolute left-0 top-0 w-0 h-full;
+    @apply absolute left-0 top-0 w-full h-full origin-left;
     background: linear-gradient(90deg, var(--theme-amber-dim), transparent);
-    transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    scale: 0 1;
+    transition: scale 200ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .post-list li:hover::before {
-    @apply w-full;
+  @media (hover: hover) and (pointer: fine) {
+    .post-list li:hover::before {
+      scale: 1 1;
+    }
   }
 
   .post-list li:first-child {
@@ -291,24 +318,24 @@
     @apply mt-2.5 text-[0.9rem] text-ink-muted leading-relaxed max-w-[50ch];
   }
 
-  .post-list li:nth-child(1) { animation: fadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both; }
-  .post-list li:nth-child(2) { animation: fadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.18s both; }
-  .post-list li:nth-child(3) { animation: fadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.26s both; }
-  .post-list li:nth-child(4) { animation: fadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.34s both; }
-  .post-list li:nth-child(5) { animation: fadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.42s both; }
-  .post-list li:nth-child(n+6) { animation: fadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both; }
+  .post-list li:nth-child(1) { animation: fadeInUp 0.3s cubic-bezier(0.22, 1, 0.36, 1) 0.04s both; }
+  .post-list li:nth-child(2) { animation: fadeInUp 0.3s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both; }
+  .post-list li:nth-child(3) { animation: fadeInUp 0.3s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both; }
+  .post-list li:nth-child(4) { animation: fadeInUp 0.3s cubic-bezier(0.22, 1, 0.36, 1) 0.16s both; }
+  .post-list li:nth-child(n+5) { animation: fadeInUp 0.3s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both; }
 
   /* --- Tags --- */
 
   .tag {
     @apply inline-block font-mono text-[0.68rem] tracking-[0.04em] lowercase;
     @apply text-amber bg-amber-dim py-[0.2em] px-[0.65em] rounded-sm;
-    @apply transition-all duration-200 border border-transparent;
+    @apply border border-transparent;
+    transition: color 200ms ease, background-color 200ms ease, border-color 200ms ease;
   }
 
   .tag:hover {
     @apply border-amber text-ink no-underline;
-    background: rgba(217, 119, 6, 0.25);
+    background: color-mix(in srgb, var(--theme-amber) 25%, transparent);
   }
 
   .tag + .tag {
@@ -317,7 +344,7 @@
 
   .tag-filter {
     @apply flex flex-wrap gap-2.5 mt-5;
-    animation: fadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
+    animation: fadeInUp 0.3s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
   }
 
   .post-meta {
@@ -346,12 +373,18 @@
   }
 
   .back-link a {
-    @apply font-mono text-[0.75rem] tracking-[0.04em] text-ink-muted transition-all duration-200;
+    @apply inline-block font-mono text-[0.75rem] tracking-[0.04em] text-ink-muted;
+    transition: color 200ms ease, translate 200ms ease;
   }
 
   .back-link a:hover {
     @apply text-amber;
-    transform: translateX(-4px);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .back-link a:hover {
+      translate: -4px 0;
+    }
   }
 
   .author-box {
@@ -378,7 +411,7 @@
 
   .about-content {
     @apply pb-12;
-    animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+    animation: fadeInUp 0.3s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
   }
 
   .about-headshot {
@@ -420,7 +453,7 @@
   .tech-list span {
     @apply font-mono text-[0.72rem] tracking-[0.02em] text-ink-muted;
     @apply bg-surface border border-rule py-1.5 px-3 rounded-sm;
-    @apply transition-all duration-200;
+    transition: color 200ms ease, border-color 200ms ease;
   }
 
   .tech-list span:hover {
@@ -439,11 +472,79 @@
     @apply font-serif italic text-[0.98rem] text-ink-muted leading-relaxed mt-4 text-center max-w-[54ch] mx-auto;
   }
 
+  /* --- Work page --- */
+
+  .work-content {
+    @apply pb-12;
+    animation: fadeInUp 0.3s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+  }
+
+  .work-content h1 {
+    @apply text-[clamp(2.2rem,7vw,3.5rem)] mb-4;
+    text-wrap: balance;
+  }
+
+  .work-content .lead {
+    @apply text-[1.1rem] text-ink-muted max-w-[50ch] leading-relaxed;
+  }
+
+  .work-content a {
+    @apply border-b border-amber/30;
+  }
+
+  .work-content a:hover {
+    @apply border-ink/50;
+  }
+
+  .work-content a:focus-visible,
+  .work-content button:focus-visible {
+    @apply outline-2 outline-offset-2 outline-amber rounded-sm;
+  }
+
+  .email-box {
+    @apply flex items-center gap-4 mt-7 mb-14 py-4 px-5 bg-surface border border-rule rounded-sm;
+  }
+
+  .work-content .email-address {
+    @apply font-mono text-[1.05rem] border-none min-w-0 break-all;
+  }
+
+  .copy-email {
+    @apply ml-auto shrink-0 cursor-pointer bg-transparent border border-rule rounded-sm py-1 px-2.5;
+    @apply min-w-[13ch] text-center font-mono text-[0.7rem] tracking-[0.08em] uppercase text-ink-muted;
+    transition: color 200ms ease, border-color 200ms ease, scale 160ms ease-out;
+  }
+
+  .copy-email:hover {
+    @apply border-amber text-amber;
+  }
+
+  .copy-email:active {
+    scale: 0.97;
+  }
+
+  .faq h2 {
+    @apply text-[1.35rem] leading-snug pt-6 mt-6 mb-2 border-t border-rule;
+    text-wrap: balance;
+  }
+
+  .faq h2:first-child {
+    @apply mt-0;
+  }
+
+  .faq p {
+    @apply mt-0 text-[0.98rem] text-ink-muted max-w-[56ch] leading-relaxed;
+  }
+
+  .work-close {
+    @apply mt-12 text-[1rem] text-ink-muted;
+  }
+
   /* --- Article / Blog Post --- */
 
   article {
     @apply py-8;
-    animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: fadeInUp 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   article h1 {
@@ -542,6 +643,11 @@
 
   header nav {
     @apply gap-4;
+  }
+
+  /* Full "Work with me" doesn't fit beside the icons on phones; the link's aria-label keeps the full name. */
+  header .nav-long {
+    @apply hidden;
   }
 
   .intro {
