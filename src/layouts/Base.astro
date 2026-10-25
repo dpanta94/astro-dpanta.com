@@ -201,10 +201,18 @@ const isProd = import.meta.env.PROD;
         var html = document.documentElement;
         var current = html.getAttribute('data-theme') || 'dark';
         var next = current === 'dark' ? 'light' : 'dark';
-        html.setAttribute('data-theme', next);
-        localStorage.setItem('theme', next);
-        var meta = document.getElementById('theme-color-meta');
-        if (meta) meta.content = next === 'light' ? '#f8f5f0' : '#0c0a09';
+        function apply() {
+          html.setAttribute('data-theme', next);
+          localStorage.setItem('theme', next);
+          var meta = document.getElementById('theme-color-meta');
+          if (meta) meta.content = next === 'light' ? '#f8f5f0' : '#0c0a09';
+        }
+        // One crossfade for the whole page; instant where unsupported or motion is reduced.
+        if (document.startViewTransition && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          document.startViewTransition(apply);
+        } else {
+          apply();
+        }
       });
     </script>
   </body>
