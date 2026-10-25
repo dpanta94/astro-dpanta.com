@@ -2,14 +2,15 @@
   "name": "Dimitris Pantazis",
   "url": "https://dpanta.com",
   "title": "Dimi",
-  "description": "Personal site and blog of Dimitris Pantazis — software developer writing about development, technology, and things I'm learning.",
+  "description": "Blog of Dimitris Pantazis, Staff Engineer at Nexcess and engineering lead for The Events Calendar, on WordPress and maintaining code at scale.",
   "language": "en",
   "locale": "en_US",
   "author": {
     "name": "Dimitris Pantazis",
     "alternateName": "Dimi",
-    "url": "https://dpanta.com",
+    "url": "https://dpanta.com/about/",
     "jobTitle": "Staff Engineer",
+    "description": "Staff Engineer at Nexcess and engineering lead for The Events Calendar.",
     "worksFor": {
       "name": "Nexcess",
       "url": "https://www.nexcess.com/"

@@ -2,26 +2,29 @@
 import { Image } from "astro:assets";
 import Base from "./Base.astro";
 import site from "../data/site.json";
+import headshot from "../assets/images/dimitris-pantazis.jpg";
 
 interface Props {
   title: string;
   date: Date;
+  updated?: Date;
   description?: string;
   image?: ImageMetadata;
   tags?: string[];
 }
 
-const { title, date, description, image, tags = [] } = Astro.props;
+const { title, date, updated, description, image, tags = [] } = Astro.props;
 
-const dateISO = date.toISOString().split("T")[0];
-const dateDisplay = date.toLocaleDateString("en-US", {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-});
+const toISODate = (d: Date) => d.toISOString().split("T")[0];
+const toDisplayDate = (d: Date) =>
+  d.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 ---
 
-<Base title={title} description={description} image={image?.src} isArticle={true} date={date} tags={tags}>
+<Base title={title} description={description} image={image} isArticle={true} date={date} updated={updated} tags={tags}>
   {image && (
     <Image src={image} alt="" class="post-hero" widths={[640, 960, 1200, 1544]} format="webp" quality={80} priority />
   )}
@@ -29,7 +32,10 @@ const dateDisplay = date.toLocaleDateString("en-US", {
     <h1>{title}</h1>
     <div class="post-meta">
       <a href="/about/" rel="author" class="post-author">{site.author.name}</a>
-      <time datetime={dateISO}>{dateDisplay}</time>
+      <time datetime={toISODate(date)}>{toDisplayDate(date)}</time>
+      {updated && (
+        <time datetime={toISODate(updated)}>Updated {toDisplayDate(updated)}</time>
+      )}
       {tags.length > 0 && (
         <span class="tag-list">
           {tags.map((tag) => (
@@ -39,5 +45,13 @@ const dateDisplay = date.toLocaleDateString("en-US", {
       )}
     </div>
     <slot />
+    <aside class="author-box">
+      <Image src={headshot} alt="Dimitris Pantazis" width={64} height={64} fit="cover" position="top" densities={[1, 2]} />
+      <p>
+        Written by <a href="/about/" rel="author">Dimitris Pantazis</a>, Staff Engineer at Nexcess and engineering lead for The Events Calendar.
+        I also run <a href="https://pantadev.com/" target="_blank" rel="noopener noreferrer">Panta Dev</a>, which builds and looks after WooCommerce stores.
+        <a href="/about/">More about me</a> &middot; <a href="mailto:dimi@pantadev.com">Work with me</a>
+      </p>
+    </aside>
   </article>
 </Base>

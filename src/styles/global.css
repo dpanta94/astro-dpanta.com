@@ -353,11 +353,35 @@
     transform: translateX(-4px);
   }
 
+  .author-box {
+    @apply flex items-start gap-4 mt-14 pt-7 border-t border-rule;
+  }
+
+  .author-box img {
+    @apply rounded-full shrink-0 border border-rule my-0;
+  }
+
+  .author-box p {
+    @apply text-[0.9rem] text-ink-muted leading-relaxed m-0;
+  }
+
+  .author-box a {
+    @apply border-b border-amber/30;
+  }
+
+  .author-box a:hover {
+    @apply border-ink/50;
+  }
+
   /* --- About page --- */
 
   .about-content {
     @apply pb-12;
     animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+  }
+
+  .about-headshot {
+    @apply rounded-full mb-6 border border-rule;
   }
 
   .about-content h1 {
