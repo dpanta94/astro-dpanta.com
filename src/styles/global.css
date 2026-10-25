@@ -36,9 +36,10 @@
 /* --- Tailwind theme tokens --- */
 
 @theme {
-  --font-serif: "Playfair Display", "Georgia", serif;
-  --font-sans: "Inter", "Helvetica Neue", sans-serif;
-  --font-mono: "JetBrains Mono", "Menlo", monospace;
+  /* Families and fallbacks are configured in astro.config.mjs (`fonts`). */
+  --font-serif: var(--font-playfair);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
 
   --color-ink: var(--theme-ink);
   --color-ink-muted: var(--theme-ink-muted);

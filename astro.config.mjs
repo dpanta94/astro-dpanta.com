@@ -1,5 +1,5 @@
 import { readFileSync, readdirSync } from "node:fs";
-import { defineConfig } from "astro/config";
+import { defineConfig, fontProviders } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 
 import tailwindcss from "@tailwindcss/vite";
@@ -26,6 +26,35 @@ export default defineConfig({
       filter: (page) => !page.includes("/tags/"),
       serialize: (item) => (postLastmod[item.url] ? { ...item, lastmod: postLastmod[item.url] } : item),
     }),
+  ],
+
+  // Self-hosted at build time so no third-party stylesheet blocks the first paint.
+  // Only the weights the CSS uses; italics stay browser-synthesized as before.
+  fonts: [
+    {
+      provider: fontProviders.google(),
+      name: "Playfair Display",
+      cssVariable: "--font-playfair",
+      weights: [400, 700],
+      styles: ["normal"],
+      fallbacks: ["Georgia", "serif"],
+    },
+    {
+      provider: fontProviders.google(),
+      name: "Inter",
+      cssVariable: "--font-inter",
+      weights: [400, 600],
+      styles: ["normal"],
+      fallbacks: ["Helvetica Neue", "sans-serif"],
+    },
+    {
+      provider: fontProviders.google(),
+      name: "JetBrains Mono",
+      cssVariable: "--font-jetbrains-mono",
+      weights: [400],
+      styles: ["normal"],
+      fallbacks: ["Menlo", "monospace"],
+    },
   ],
 
   markdown: {

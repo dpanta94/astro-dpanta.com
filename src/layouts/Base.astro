@@ -1,6 +1,6 @@
 ---
 import { SEO } from "astro-seo";
-import { getImage } from "astro:assets";
+import { Font, getImage } from "astro:assets";
 import site from "../data/site.json";
 import ogDefault from "../assets/images/og-default.jpg";
 import headshot from "../assets/images/dimitris-pantazis.jpg";
@@ -142,12 +142,10 @@ const isProd = import.meta.env.PROD;
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="alternate" type="application/rss+xml" title={site.title} href="/feed.xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&family=Playfair+Display:wght@400;600;700;800&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Preload only what the first paint needs: body text and headings. -->
+    <Font cssVariable="--font-inter" preload />
+    <Font cssVariable="--font-playfair" preload />
+    <Font cssVariable="--font-jetbrains-mono" />
     {isProd && (
       <script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
       new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
