@@ -1,0 +1,77 @@
+---
+import Base from "../../layouts/Base.astro";
+
+const email = "dimi@pantadev.com";
+---
+
+<Base title="Work with me" description="WordPress and plugin work, web projects, and consulting. What clients ask before hiring me, and how to get in touch.">
+  <div class="work-content">
+    <h1>Questions people ask before hiring me</h1>
+    <p class="lead">
+      Through my agency, <a href="https://pantadev.com/" target="_blank" rel="noopener noreferrer">Panta Dev</a>,
+      I build, fix and look after WooCommerce stores: custom plugins, integrations, speed and security work, and
+      monthly care. I also take on other web projects and code reviews.
+    </p>
+
+    <div class="email-box">
+      <a href={`mailto:${email}`} class="email-address">{email}</a>
+      <button type="button" class="copy-email" data-email={email} hidden>Copy</button>
+      <span class="sr-only" role="status"></span>
+    </div>
+
+    <section class="faq">
+      <h2>Do you only do WooCommerce?</h2>
+      <p>
+        No. It doesn't have to be WordPress: I also work with Laravel, Symfony, React, Next.js, Vue, Express and NestJS.
+        I've spent a lot of time in WordPress, as both a developer and a consultant.
+      </p>
+
+      <h2>What have you worked on?</h2>
+      <p>
+        I'm the engineering lead for The Events Calendar products at Nexcess, a family of plugins running on over
+        800,000 sites. I've also worked with WooCommerce, Event Tickets and LearnDash.
+        I wrote about <a href="/blog/maintaining-a-plugin-used-by-almost-a-million/">what maintaining that taught me</a>.
+      </p>
+
+      <h2>Can you review code we already have?</h2>
+      <p>
+        Yes. Architecture, maintainability, and how to change things without breaking the people who depend on them.
+        I've written about <a href="/blog/on-simplicity/">when abstraction earns its place</a>.
+      </p>
+
+      <h2>What should I put in the email?</h2>
+      <p>What you're building, where it is now, and what you need help with. A few sentences is enough.</p>
+    </section>
+
+    <p class="work-close">Sounds like a fit? Email me at <a href={`mailto:${email}`}>{email}</a>.</p>
+  </div>
+</Base>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>(".copy-email");
+  const status = document.querySelector<HTMLElement>(".email-box [role='status']");
+  const address = document.querySelector<HTMLElement>(".email-address");
+
+  // Without the Clipboard API the button stays hidden; the address is still a mailto link and selectable text.
+  if (button && status && address && navigator.clipboard) {
+    button.hidden = false;
+    let reset: number | undefined;
+
+    button.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(button.dataset.email ?? "");
+        button.textContent = status.textContent = "Copied";
+      } catch {
+        // Select the address so a manual copy is one keystroke away.
+        getSelection()?.selectAllChildren(address);
+        button.textContent = "Selected";
+        status.textContent = "Couldn't copy automatically. The address is selected.";
+      }
+      clearTimeout(reset);
+      reset = window.setTimeout(() => {
+        button.textContent = "Copy";
+        status.textContent = "";
+      }, 2000);
+    });
+  }
+</script>

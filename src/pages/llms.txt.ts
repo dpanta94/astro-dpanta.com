@@ -19,6 +19,7 @@ export async function GET() {
     "",
     `- [About](${site.url}/about/): Background, expertise, and how to work with ${author.name}`,
     `- [Blog](${site.url}/blog/): All posts`,
+    `- [Work with me](${site.url}/work/): What ${author.name} takes on, common client questions, and how to get in touch`,
     "",
     "## Work with me",
     "",

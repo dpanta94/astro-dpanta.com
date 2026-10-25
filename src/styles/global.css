@@ -439,6 +439,69 @@
     @apply font-serif italic text-[0.98rem] text-ink-muted leading-relaxed mt-4 text-center max-w-[54ch] mx-auto;
   }
 
+  /* --- Work page --- */
+
+  .work-content {
+    @apply pb-12;
+    animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+  }
+
+  .work-content h1 {
+    @apply text-[clamp(2.2rem,7vw,3.5rem)] mb-4;
+    text-wrap: balance;
+  }
+
+  .work-content .lead {
+    @apply text-[1.1rem] text-ink-muted max-w-[50ch] leading-relaxed;
+  }
+
+  .work-content a {
+    @apply border-b border-amber/30;
+  }
+
+  .work-content a:hover {
+    @apply border-ink/50;
+  }
+
+  .work-content a:focus-visible,
+  .work-content button:focus-visible {
+    @apply outline-2 outline-offset-2 outline-amber rounded-sm;
+  }
+
+  .email-box {
+    @apply flex items-center gap-4 mt-7 mb-14 py-4 px-5 bg-surface border border-rule rounded-sm;
+  }
+
+  .work-content .email-address {
+    @apply font-mono text-[1.05rem] border-none min-w-0 break-all;
+  }
+
+  .copy-email {
+    @apply ml-auto shrink-0 cursor-pointer bg-transparent border border-rule rounded-sm py-1 px-2.5;
+    @apply font-mono text-[0.7rem] tracking-[0.08em] uppercase text-ink-muted transition-colors duration-200;
+  }
+
+  .copy-email:hover {
+    @apply border-amber text-amber;
+  }
+
+  .faq h2 {
+    @apply text-[1.35rem] leading-snug pt-6 mt-6 mb-2 border-t border-rule;
+    text-wrap: balance;
+  }
+
+  .faq h2:first-child {
+    @apply mt-0;
+  }
+
+  .faq p {
+    @apply mt-0 text-[0.98rem] text-ink-muted max-w-[56ch] leading-relaxed;
+  }
+
+  .work-close {
+    @apply mt-12 text-[1rem] text-ink-muted;
+  }
+
   /* --- Article / Blog Post --- */
 
   article {
@@ -542,6 +605,11 @@
 
   header nav {
     @apply gap-4;
+  }
+
+  /* Full "Work with me" doesn't fit beside the icons on phones; the link's aria-label keeps the full name. */
+  header .nav-long {
+    @apply hidden;
   }
 
   .intro {
